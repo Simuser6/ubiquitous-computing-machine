@@ -1,0 +1,16 @@
+CREATE TABLE [dbo].[Avisos] (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    titulo NVARCHAR(200) NOT NULL,
+    descricao NVARCHAR(MAX) NOT NULL,
+    autor NVARCHAR(100) NOT NULL,
+    data_publicacao DATETIME DEFAULT GETDATE(),
+    data_expiracao DATETIME NULL,
+    publico_alvo NVARCHAR(100) NULL
+);
+
+and 
+
+INSERT INTO [dbo].[Avisos] (titulo, descricao, autor, data_expiracao, publico_alvo)
+VALUES
+('Aulas retomadas', 'As aulas voltam dia 10 de fevereiro.', 'Secretaria', '2025-02-10', 'Alunos'),
+('Palestra sobre IA', 'Participe da palestra sobre Inteligência Artificial no auditório.', 'Coordenação', NULL, 'Todos');
