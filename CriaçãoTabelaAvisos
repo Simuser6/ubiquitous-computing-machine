@@ -1,3 +1,61 @@
+LEIA COM MUITA ATENÇÃO! 
+=======================
+Passo 1)
+Para testar o conteúdo desta aula, você obrigatoriamente tem que ter assistido e executado 
+os passos descritos na  aula NUMERO 1 da playlist: 
+
+https://www.youtube.com/watch?v=4ijU5fdkag8&list=PL4x1btvjpIuBOYaXjeHpX7r5_c2ysUUH8&index=6
+==========================================================================================
+Passo 2)
+Se os passos da aula 1 estiverem corretos você deve acessar a aplicação em: 
+
+http://localhost:3000
+
+Caso esteja com problemas, volte para o Passo 1.
+==========================================================================================
+Passo 3)
+Apos descompactar o conteudo do github, você verá as seguintes subpastas:
+
+  +public
+  +src
+
+e os dois arquivos:
+
+  -package.json
+  -package-lock.json
+  -instrucoes_instalacao.txt
+===========================================================================================
+Passo 4)
+Copie a pasta "node_modules" do projeto criado durante a "AULA NUMERO 1" da playlist.
+Para a pasta descompactada no passo 3.
+
+Sua estrutura de pastas deve ficar como:
+  +node_modules
+  +public
+  +src
+e os dois arquivos:
+  -package.json
+  -package-lock.json
+  -instrucoes_instalacao.txt
+===========================================================================================
+Passo 5)
+Instale o pacote nodemon:
+  > npm install --save-dev nodemon
+===========================================================================================
+Passo 6)
+Gerando os registros fakes:
+  > npm run seed:alunos
+  > npm run seed:pagamentos
+===========================================================================================
+Passo 7)
+Rode a aplicação:
+  > npm run dev
+===========================================================================================
+
+Passo 8)
+
+Crie a tabela avisos dentro do banco de dados do Projeto
+
 CREATE TABLE [dbo].[Avisos] (
     id INT IDENTITY(1,1) PRIMARY KEY,
     titulo NVARCHAR(200) NOT NULL,
@@ -8,7 +66,10 @@ CREATE TABLE [dbo].[Avisos] (
     publico_alvo NVARCHAR(100) NULL
 );
 
-and 
+===========================================================================================
+Passo 9)
+
+Popule a tabela com alguns dados para exemplificação
 
 INSERT INTO [dbo].[Avisos] (titulo, descricao, autor, data_expiracao, publico_alvo)
 VALUES
