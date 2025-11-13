@@ -1,107 +1,62 @@
 const express = require("express");
 const path = require("path");
-const app = express(); // 👈 agora visível globalmente
 const { connectDB, getPool } = require("./config/db");
+const app = express(); 
+
 const avisosRoutes = require("./routes/avisosRoutes");
 const departamentosRoutes = require("./routes/departamentos");
+const cursosRoutes = require("./routes/cursos");
+const turmasRoutes = require("./routes/turmas");
+const alunosRoutes = require("./routes/alunos");
+const matriculasRoutes = require("./routes/matriculas");
+const pagamentosRoutes = require("./routes/pagamentos");
 
-const PORT = process.env.PORT || 3000; // ✅ DECLARE AQUI
+
+// (adicione outras rotas aqui, se houver)
 
 (async () => {
   const app = express();
   const PORT = process.env.PORT || 3000;
 
+  // Middleware padrão
   app.use(express.json());
   app.use(express.static(path.join(__dirname, "../public")));
 
   try {
-    // 1️⃣ Conecta ao banco e cria o pool
+    // Conecta ao banco
     await connectDB();
     const pool = getPool();
-    console.log("✅ Pool criado:", !!pool);
 
-    // 2️⃣ Cria um middleware que injeta o pool no Router também
+    // Injeta pool em todas as requisições
     app.use((req, res, next) => {
       req.pool = pool;
-      console.log("✅ Middleware de pool executado");
       next();
     });
 
-    // 3️⃣ Usa o router de avisos
-    app.use("/api/avisos", (req, res, next) => {
-      // garante que as rotas dentro do router também herdam o pool
-      req.pool = pool;
-      next();
-    }, avisosRoutes);
+    // Define rotas da API
+    app.use("/api/avisos", avisosRoutes);
+    app.use("/api/departamentos", departamentosRoutes);
+    app.use("/api/cursos", cursosRoutes)
+    app.use("/api/turmas", turmasRoutes)
+    app.use("/api/alunos", alunosRoutes)
+    app.use("/api/matriculas", matriculasRoutes)
+    app.use("/api/pagamentos", pagamentosRoutes)
 
-    // 4️⃣ Inicia o servidor
+    // Rota padrão para testar
+    app.get("/api/teste", (req, res) => {
+      res.send("Servidor funcionando ✅");
+    });
+
+    // Inicia o servidor
     app.listen(PORT, () => {
       console.log(`🚀 Servidor rodando na porta ${PORT}`);
-      console.log(`📱 Acesse: http://localhost:${PORT}`);
-      console.log(`🔗 API disponível em: http://localhost:${PORT}/api/avisos`);
+      console.log(`🔗 Teste em: http://localhost:${PORT}/api/teste`);
     });
-  } catch (err) {
-    console.error("❌ Erro ao iniciar servidor:", err);
+  } catch (error) {
+    console.error("❌ Erro ao iniciar servidor:", error);
   }
 })();
-// =====================================================
-// ROTAS DA API
-// =====================================================
-app.use("/api/departamentos", require("./routes/departamentos"));
-app.use("/api/cursos", require("./routes/cursos"));
-app.use("/api/turmas", require("./routes/turmas"));
-app.use("/api/alunos", require("./routes/alunos"));
-app.use("/api/matriculas", require("./routes/matriculas"));
-app.use("/api/pagamentos", require("./routes/pagamentos"));
-app.use("/api/avisos", avisosRoutes);
 
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
-
-// Rotas movidas para módulos em ./routes
 
 // Rota para servir a aplicação
 app.get("/", (req, res) => {
